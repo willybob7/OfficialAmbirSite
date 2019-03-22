@@ -1,0 +1,249 @@
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600|Cormorant+SC:600");
+body {
+  margin: 0;
+  /* background-image: url("https://spencer-s-site.firebaseapp.com/pictures/background.jpg"); */
+    background-image: url("pictures/background.jpg");
+
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 800;
+  background-size: 100%;
+  --background: rgba(26, 26, 26, 0.8);
+  --textColor: white;
+}
+
+.container {
+  width: 100%;
+  background: var(--background);
+  position: absolute;
+  top: 0;
+
+}
+
+
+header {
+  height: 70px;
+  text-align: center;
+  padding-top: 5px;
+  height: 119px
+
+}
+
+h1 {
+  margin: 5px auto;
+  width: 210px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 40px;
+  font-family: 'Cormorant SC', serif;
+  color: var(--textColor);
+  text-decoration: none;
+  width: 200px;
+}
+#subtext{
+  margin: 0;
+}
+
+.container p {
+  color: var(--textColor);
+  font-family: 'Cormorant SC', serif;
+}
+
+hr {
+  width: 15em;
+}
+
+nav {
+text-align: center;
+font-family: 'Cormorant SC', serif;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+  margin: 5px 2%;
+  padding-top: 10px;
+  position: relative;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: rgb(191, 191, 191);
+}
+
+nav a::before, .logo::before {
+  content: '';
+  display: block;
+  height: 5px;
+  background-color: rgb(191, 191, 191);
+  position: absolute;
+  top: 0;
+  width: 0%;
+  transition: all ease-in-out 250ms;
+}
+h1 a::before{
+margin-top: 5px;
+}
+nav a:hover::before {
+  width: 100%;
+}
+h1 a:hover::before {
+  width: 210px;
+}
+.dropdown-content {
+  visibility: hidden;
+  opacity: 0;
+  z-index: 2;
+  position: absolute;
+  transform: translateY(-5px);
+  background: var(--background);
+  transition: all 0.3s ease-in-out;
+  width: 130px;
+}
+
+.dropdown:hover .dropdown-content{
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(5px);
+}
+
+
+* {box-sizing: border-box}
+
+#policy {
+  color: var(--textColor);
+  font-family: 'Cormorant SC', serif;
+  text-align: left;
+  background: rgba(26, 26, 26, 0.9);
+  margin: 32px 20% 0 20%;
+  padding: 50px;
+  border-radius: 20px;
+  border: solid gold 1px;
+}
+#policy li{
+  text-align: left;
+}
+
+.policy-dropdown-content {
+  visibility: hidden;
+  opacity: 0;
+  z-index: 2;
+  position: absolute;
+  transform: translateY(-5px);
+  background: var(--background);
+  transition: all 0.3s ease-in-out;
+  width: 1500%;
+}
+
+.dropdown:hover .policy-dropdown-content{
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(5px);
+
+}
+.area {
+  background: var(--background);
+  width: 300px;
+  position: relative;
+  margin-top: 40px;
+  border: black 2px solid;
+  border-radius: 10px;
+  margin-left: 2%;
+}
+.focusPic {
+  height: 200px;
+  position: relative;
+  display: block;
+  margin: 1px auto;
+  border: white 2px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  max-width: 100%;
+}
+.area p {
+  color: white;
+  font-family: 'Cormorant SC', serif;
+
+}
+.pic {
+  margin: 2px;
+  border: white 2px solid;
+  border-radius: 5px;
+  cursor: pointer;
+}
+@media screen and (max-width:940px ){
+  .policy-dropdown-content {
+    width: 1000%;
+  }
+}
+@media screen and (max-width:530px) {
+  .policy-dropdown-content {
+    width: 400px;
+  }
+
+}
+@media screen and (max-width: 474px) {
+  .logo {
+    margin: 0px auto;
+  }
+  .container p {
+    margin: 0;
+  }
+  nav li {
+    display: block;
+    padding-top: 10px;
+  }
+  .dropdown-content{
+    display: none;
+  }
+  .policy-dropdown-content {
+      display: none;
+  }
+  #pics{
+  margin-top: 140px;
+  }
+  #policy{
+      margin: 162px 0 0 0; 
+  }
+
+}
+
+.row > .column {
+  padding: 0 8px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  width: 50%;
+  left: 25%;
+
+}
+@media screen and (max-width: 650px) {
+  .column {
+    width: 75%;
+    left: 15%;
+  }
+}

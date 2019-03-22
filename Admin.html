@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="Adminstyles.css">
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+    <title>paypal button processor</title>
+    <link rel="shortcut icon" type="image/png" href="pictures/favicon.png">
+
+  </head>
+  <body>
+    
+
+    <div id="main" class="container">
+      <button class="btn" id="login-button">Login</button>
+      <button class="btn" id="signup-button">Signup</button>
+      <button class="btn" id="signout">Signout</button>
+      <button class="btn" id="make-admin">Make Admin</button>
+      <button class="btn" id="upload-item">Upload Item</button>
+      <button class="btn" id="delete-item">Delete Item</button>
+      <button class="btn" id="changePasswordButton">Change Password</button>
+<!-- <a href="changePassword.html">Change Password</a> -->
+
+      <!-- form for authentication -->
+      <form id="login-form">
+        <div class="input-field">
+          <input type="email" id="login-email" required />
+          <label for="login-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="login-password" required />
+          <label for="login-password">Your password</label>
+        </div>
+        <button class="btn">Login</button>
+        <p class="error"></p>
+      </form>
+
+      <!-- change password form -->
+      <form id="changePasswordForm"> 
+        <div class="input-field">
+          <input type="email" id="changePasswordEmail" required />
+          <label for="changePasswordEmail">Email address</label>
+        </div>
+        <button class="btn">submit</button>
+      </form>
+
+       <!-- sign up form -->
+          <form id="signup-form">
+            <div >
+              <input type="email" id="signup-email" required />
+              <label for="signup-email">Email address</label>
+            </div>
+            <div>
+              <input type="password" id="signup-password" required />
+              <label for="signup-password">Choose password</label>
+            </div>
+            <button class="btn">Sign up</button>
+            <p class="error"></p>
+          </form>
+
+          <!-- ADMIN ACTIONS -->
+          <div class="admin-actions">
+            <form id="addAdmin">
+              <h1>Make Admin</h1>
+              <input type="email" placeholder="User email" id="admin-email" />
+              <button class="btn">Make admin</button>
+            </form>
+            <form id="removeAdmin">
+              <h1>Remove Admin</h1>
+              <input type="email" placeholder="User email" id="adminRemoveEmail" />
+              <button class="btn">Remove Admin</button>
+            </form>
+          </div>
+
+         
+      
+
+
+      <div id="upload">
+      <h1>Upload Item</h1>
+      <form id="input" action="" method="post">
+        <div class="row">
+          <h3>Upload Progress</h3>
+          <progress class="progress" value="0" max="100" id="uploader">0%</progress>
+        </div>
+        <div class="row">
+            <h5>Choose pictures   </h5><input id="fileUpload" type="file" value="upload" multiple>
+        </div>
+
+        <div class="row">
+          <select name="sections" id="sectionSelector" required>
+            <option value="">Choose a type</option>
+            <option value="Marching Brass">Marching Brass</option>
+            <option value="Concert Brass">Concert Brass</option>
+            <option value="Woodwinds">Woodwinds</option>
+            <option value="Percussion">Percussion</option>
+            <option value="Mouthpieces">Mouthpieces</option>
+          </select>
+        </div>
+        <div class="row">
+            <input type="text" id="brand" placeholder="brand"></input>
+            <input type="text" id="model" placeholder="model"></input>
+            <input type="text" id="ser" placeholder="serial#"></input>
+        </div>
+        <div class="row">
+          <textarea class="col-10" name="description" id="description" cols="80" rows="8" placeholder="description"></textarea>
+        </div>
+        <div class="row">
+          <input type="number" id="price" placeholder="price"></input>
+          <input type="number" id="shipping" placeholder="shipping"></input>
+        </div>
+        <div class="row">
+          <textarea class="col-10" name="button_html" id="buyButton" rows="8" cols="80" placeholder="paypal button code" ></textarea>
+        </div>
+        <div class="row justify-content-around">
+          <input class="btn btn-primary"type="submit" name="submit" value="Upload">
+          <input class="btn btn-danger" type="reset" value="Clear Form">
+        </div>
+    </form>
+      
+    </div>
+    <div id="delete" class="container">
+      <h1>Delete Item</h1>
+      <form action="" id="deleteSerial">
+        <input type="text" name="serial" id="serial" placeholder="enter serial number of item to delete"></input>
+        <input class="btn"type="submit" name="submit" value="delete">
+      </form>
+    </div>
+  </div> 
+
+
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-functions.js"></script>
+
+  <script>
+  
+    let config = {
+      apiKey: "AIzaSyCPCE_xtAMGPPMjw0E6AZA2DwC0UlgBpJ0",
+      authDomain: "spencer-s-site.firebaseapp.com",
+      databaseURL: "https://spencer-s-site.firebaseio.com",
+      projectId: "spencer-s-site",
+      storageBucket: "spencer-s-site.appspot.com",
+      messagingSenderId: "614107400154"
+    };
+    firebase.initializeApp(config);
+
+    let auth = firebase.auth();
+    let storageRef = firebase.storage().ref()
+    let db = firebase.database()
+    let functions = firebase.functions()
+  </script>
+
+<script type="text/javascript" src="Admincode.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+  </body>
+</html>
