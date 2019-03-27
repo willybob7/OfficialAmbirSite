@@ -31,6 +31,7 @@ firebase
         area.appendChild(focusPic);
         let lightboxContent;
         let itemPicArr = obj[item].pics;
+        let lightbox = document.createElement("div");
 
         for (let i = 0; i < itemPicArr.length; i++) {
           if (i == 0) {
@@ -41,7 +42,6 @@ firebase
             pic.setAttribute("class", "focusPic");
             pic.picNum = 0;
             focusPic.appendChild(pic);
-            let lightbox = document.createElement("div");
             lightbox.setAttribute("class", "modal");
             let close = document.createElement("span");
             close.setAttribute("class", "close cursor");
@@ -77,13 +77,13 @@ firebase
         prev.setAttribute("class", "prev");
         prev.value = -1;
         prev.innerHTML = "&#10094;";
-        lightboxContent.appendChild(prev);
+        lightbox.appendChild(prev);
         let next = document.createElement("a");
         next.addEventListener("click", plusSlides);
         next.setAttribute("class", "next");
         next.innerHTML = "&#10095;";
         next.value = 1;
-        lightboxContent.appendChild(next);
+        lightbox.appendChild(next);
         let thumbPlace;
         for (let i = 0; i < obj[item].pics.length; i++) {
           if (i === 0) {
@@ -99,7 +99,7 @@ firebase
           thumbNail.setAttribute("alt", "stuff");
           thumbPlace.appendChild(thumbNail);
         }
-        lightboxContent.appendChild(thumbPlace);
+        lightbox.appendChild(thumbPlace);
 
         let Brand = document.createElement("p");
         let BrandName = document.createTextNode("Brand: " + obj[item].brand);
@@ -386,11 +386,75 @@ function showSlides(n, event) {
   // let picWidth = slides[i].clientWidth;
   // let width = Math.round((picWidth / areaWidth) * 100);
   // let margin = (100 - width) / 2;
-  for (i = 0; i < slides.length; i++) {
-    //change this to use css transition. It's smoother. Don't forget to center the pictures vertically and horizontally
+
+  //swipe test code
+
+  const _C = event.target,
+    N = slides.length;
+  console.log(_C);
+
+  // let x = 0,
+  //   x0 = null,
+  //   locked = false,
+  //   w;
+
+  // function unify(e) {
+  //   return e.changedTouches ? e.changedTouches[0] : e;
+  // }
+
+  // function lock(e) {
+  //   x0 = unify(e).clientX;
+  //   _C.classList.toggle("smooth", !(locked = true));
+  // }
+
+  // function drag(e) {
+  //   e.preventDefault();
+
+  //   if (locked)
+  //     _C.style.setProperty("--tx", `${Math.round(unify(e).clientX - x0)}px`);
+  // }
+
+  // function move(e) {
+  //   if (locked) {
+  //     let dx = unify(e).clientX - x0,
+  //       s = Math.sign(dx),
+  //       f = +((s * dx) / w).toFixed(2);
+
+  //     if ((x > 0 || s < 0) && (x < N - 1 || s > 0) && f > 0.2) {
+  //       _C.style.setProperty("--i", (x -= s));
+  //       f = 1 - f;
+  //     }
+
+  //     _C.style.setProperty("--tx", "0px");
+  //     _C.style.setProperty("--f", f);
+  //     _C.classList.toggle("smooth", !(locked = false));
+  //     x0 = null;
+  //   }
+  // }
+
+  // function size() {
+  //   w = window.innerWidth;
+  // }
+
+  // size();
+  // _C.style.setProperty("--n", N);
+
+  // addEventListener("resize", size, false);
+
+  // _C.addEventListener("mousedown", lock, false);
+  // _C.addEventListener("touchstart", lock, false);
+
+  // _C.addEventListener("mousemove", drag, false);
+  // _C.addEventListener("touchmove", drag, false);
+
+  // _C.addEventListener("mouseup", move, false);
+  // _C.addEventListener("touchend", move, false);
+
+  //swipe test code
+
+  for (let i = 0; i < slides.length; i++) {
     if (slides[i].style.display != "none") {
       let picture = slides[i];
-      // console.log(window.innerWidth, picture.childNodes[0].clientWidth)
       let picWidth = picture.childNodes[0].clientWidth;
       let leftWidth = (window.innerWidth - picWidth) / 2 + picWidth;
       let rightMargin = 0;
@@ -413,7 +477,7 @@ function showSlides(n, event) {
       // }
     }
   }
-  for (i = 0; i < dots.length; i++) {
+  for (let i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
 
