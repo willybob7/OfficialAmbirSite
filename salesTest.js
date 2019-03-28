@@ -369,7 +369,7 @@ function currentSlide(event) {
 }
 
 function showSlides(n, event) {
-  let i, slides, dots;
+  let slides, dots;
   slides = event.target.parentNode.parentNode.getElementsByClassName(
     "mySlides"
   );
@@ -389,94 +389,94 @@ function showSlides(n, event) {
 
   //swipe test code
 
-  const _C = event.target,
+  const _C = event.target.parentNode.parentNode.getElementsByClassName("modal-content"),
     N = slides.length;
   console.log(_C);
 
-  // let x = 0,
-  //   x0 = null,
-  //   locked = false,
-  //   w;
+  let x = 0,
+    x0 = null,
+    locked = false,
+    w;
 
-  // function unify(e) {
-  //   return e.changedTouches ? e.changedTouches[0] : e;
-  // }
+  function unify(e) {
+    return e.changedTouches ? e.changedTouches[0] : e;
+  }
 
-  // function lock(e) {
-  //   x0 = unify(e).clientX;
-  //   _C.classList.toggle("smooth", !(locked = true));
-  // }
+  function lock(e) {
+    x0 = unify(e).clientX;
+    _C.classList.toggle("smooth", !(locked = true));
+  }
 
-  // function drag(e) {
-  //   e.preventDefault();
+  function drag(e) {
+    e.preventDefault();
 
-  //   if (locked)
-  //     _C.style.setProperty("--tx", `${Math.round(unify(e).clientX - x0)}px`);
-  // }
+    if (locked)
+      _C.style.setProperty("--tx", `${Math.round(unify(e).clientX - x0)}px`);
+  }
 
-  // function move(e) {
-  //   if (locked) {
-  //     let dx = unify(e).clientX - x0,
-  //       s = Math.sign(dx),
-  //       f = +((s * dx) / w).toFixed(2);
+  function move(e) {
+    if (locked) {
+      let dx = unify(e).clientX - x0,
+        s = Math.sign(dx),
+        f = +((s * dx) / w).toFixed(2);
 
-  //     if ((x > 0 || s < 0) && (x < N - 1 || s > 0) && f > 0.2) {
-  //       _C.style.setProperty("--i", (x -= s));
-  //       f = 1 - f;
-  //     }
+      if ((x > 0 || s < 0) && (x < N - 1 || s > 0) && f > 0.2) {
+        _C.style.setProperty("--i", (x -= s));
+        f = 1 - f;
+      }
 
-  //     _C.style.setProperty("--tx", "0px");
-  //     _C.style.setProperty("--f", f);
-  //     _C.classList.toggle("smooth", !(locked = false));
-  //     x0 = null;
-  //   }
-  // }
+      _C.style.setProperty("--tx", "0px");
+      _C.style.setProperty("--f", f);
+      _C.classList.toggle("smooth", !(locked = false));
+      x0 = null;
+    }
+  }
 
-  // function size() {
-  //   w = window.innerWidth;
-  // }
+  function size() {
+    w = window.innerWidth;
+  }
 
-  // size();
-  // _C.style.setProperty("--n", N);
+  size();
+  _C.style.setProperty("--n", N);
 
-  // addEventListener("resize", size, false);
+  addEventListener("resize", size, false);
 
-  // _C.addEventListener("mousedown", lock, false);
-  // _C.addEventListener("touchstart", lock, false);
+  _C.addEventListener("mousedown", lock, false);
+  _C.addEventListener("touchstart", lock, false);
 
-  // _C.addEventListener("mousemove", drag, false);
-  // _C.addEventListener("touchmove", drag, false);
+  _C.addEventListener("mousemove", drag, false);
+  _C.addEventListener("touchmove", drag, false);
 
-  // _C.addEventListener("mouseup", move, false);
-  // _C.addEventListener("touchend", move, false);
+  _C.addEventListener("mouseup", move, false);
+  _C.addEventListener("touchend", move, false);
 
   //swipe test code
 
-  for (let i = 0; i < slides.length; i++) {
-    if (slides[i].style.display != "none") {
-      let picture = slides[i];
-      let picWidth = picture.childNodes[0].clientWidth;
-      let leftWidth = (window.innerWidth - picWidth) / 2 + picWidth;
-      let rightMargin = 0;
-      let id = setInterval(pictureSlideOff, 1);
-      function pictureSlideOff() {
-        if (rightMargin > leftWidth) {
-          clearInterval(id);
-          //do a set interval for pictureSlideOn here
-          picture.style.display = "none";
-          picture.style.right = "0px";
-          slides[slideIndex].style.display = "block";
-          slides[slideIndex].childNodes[0].className = "display";
-        } else {
-          rightMargin += 10;
-          picture.style.right = rightMargin + "px";
-        }
-      }
-      // function pictureSlideOn() {
-      //   slides[slideIndex].stlye.left =
-      // }
-    }
-  }
+  // for (let i = 0; i < slides.length; i++) {
+  //   if (slides[i].style.display != "none") {
+  //     let picture = slides[i];
+  //     let picWidth = picture.childNodes[0].clientWidth;
+  //     let leftWidth = (window.innerWidth - picWidth) / 2 + picWidth;
+  //     let rightMargin = 0;
+  //     let id = setInterval(pictureSlideOff, 1);
+  //     function pictureSlideOff() {
+  //       if (rightMargin > leftWidth) {
+  //         clearInterval(id);
+  //         //do a set interval for pictureSlideOn here
+  //         picture.style.display = "none";
+  //         picture.style.right = "0px";
+  //         slides[slideIndex].style.display = "block";
+  //         slides[slideIndex].childNodes[0].className = "display";
+  //       } else {
+  //         rightMargin += 10;
+  //         picture.style.right = rightMargin + "px";
+  //       }
+  //     }
+  //     // function pictureSlideOn() {
+  //     //   slides[slideIndex].stlye.left =
+  //     // }
+  //   }
+  // }
   for (let i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }

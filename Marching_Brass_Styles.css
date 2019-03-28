@@ -252,12 +252,18 @@ h1 a:hover::before {
 
 /* Modal Content */
 .modal-content {
-  position: relative;
+  display: flex;
+  align-items: center;
+  height: 50vw;
+  max-height: 100vh;
+  /* position: relative; */
   background-color: black;
   margin: auto;
   padding: 0;
   width: 90%;
   max-width: 1200px;
+  transform: translate(calc(var(--tx, 0px) + var(--i, 0) / var(--n) * -100%));
+
 }
 
 /* The Close Button */
@@ -280,7 +286,7 @@ h1 a:hover::before {
 
 /* Hide the slides by default */
 .mySlides {
-  display: none;
+  /* display: none; */
   background-color: black;
   position: relative;
 }
@@ -375,17 +381,17 @@ p {
 }
 
 /* testing the swipe stuff */
-.modal-content {
+/* .modal-content { */
   /* --n: 1; */
   /* display: flex; */
   /* align-items: center; */
   /* overflow-y: hidden; */
   /* width: 100%; */
   /* width: calc(var(--n) * 100%); */
-  height: 50vw;
+  /* height: 50vw;
   max-height: 100vh;
-  transform: translate(calc(var(--tx, 0px) + var(--i, 0) / var(--n) * -100%));
-}
+  transform: translate(calc(var(--tx, 0px) + var(--i, 0) / var(--n) * -100%)); */
+/* } */
 .modal-content img {
   width: 100%;
   width: calc(100% / var(--n));
