@@ -287,9 +287,10 @@ h1 a:hover::before {
 }
 
 .modal-content img {
-  height: 30em;
-  width: 100%;
-  width: calc(100% / var(--n));
+  max-height: 85vh;
+  max-width: 100%;
+  /* width: 100%; */
+  /* width: calc(100% / var(--n)); */
   user-select: none;
   pointer-events: none;
   align-self: center;
@@ -298,6 +299,8 @@ h1 a:hover::before {
 .smooth {
   transition: transform calc(var(--f, 1) * 0.5s) ease-out;
 }
+
+
 
 /* swipe stuff */
 

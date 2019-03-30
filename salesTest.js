@@ -434,7 +434,21 @@ function showSlides(n, event) {
   }
 
   function size() {
+    // let _CWidth; 
     w = window.innerWidth;
+    for (let i = 0; i < slides.length; i++) {
+      let picWidth = slides[i].clientWidth
+      console.log(picWidth)
+      if(picWidth > w){
+        slides[i].style.maxWidth = w + "px"
+      } else {
+        slides[i].style.maxWidth = ""
+      }
+    let sidePadding = (w - picWidth) / 2 + "px"
+    slides[i].style.paddingLeft = sidePadding
+    slides[i].style.paddingRight = sidePadding
+    
+    }
   }
 
   size();
