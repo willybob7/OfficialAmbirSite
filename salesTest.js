@@ -438,15 +438,17 @@ function showSlides(n, event) {
     w = window.innerWidth;
     for (let i = 0; i < slides.length; i++) {
       let picWidth = slides[i].clientWidth
-      console.log(picWidth)
-      if(picWidth > w){
+      // console.log(picWidth)
+      if(picWidth >= w){
         slides[i].style.maxWidth = w + "px"
+        slides[i].style.paddingLeft = null
+        slides[i].style.paddingRight = null;
       } else {
-        slides[i].style.maxWidth = ""
+        slides[i].style.maxWidth = null;
+        let sidePadding = (w - picWidth) / 2 + "px"
+        slides[i].style.paddingLeft = sidePadding
+        slides[i].style.paddingRight = sidePadding
       }
-    let sidePadding = (w - picWidth) / 2 + "px"
-    slides[i].style.paddingLeft = sidePadding
-    slides[i].style.paddingRight = sidePadding
     
     }
   }
@@ -454,7 +456,7 @@ function showSlides(n, event) {
   size();
   _C.style.setProperty("--n", N);
 
-  addEventListener("resize", size, false);
+  window.addEventListener("resize", size, false);
 
   _C.addEventListener("mousedown", lock, false);
   _C.addEventListener("touchstart", lock, false);
