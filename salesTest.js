@@ -49,7 +49,8 @@ firebase
             close.innerHTML = "&times;";
             lightbox.appendChild(close);
             lightboxContent = document.createElement("div");
-            lightboxContent.setAttribute("class", "modal-content");
+            // lightboxContent.setAttribute("class", "modal-content");
+            lightboxContent.className = "modal-content smooth";
             lightbox.appendChild(lightboxContent);
             area.appendChild(lightbox);
           }
@@ -70,13 +71,13 @@ firebase
           lightboxContent.appendChild(slidePic);
         }
         let prev = document.createElement("a");
-        prev.addEventListener("click", plusSlides);
+        // prev.addEventListener("click", plusSlides);
         prev.setAttribute("class", "prev");
         prev.value = -1;
         prev.innerHTML = "&#10094;";
         lightbox.appendChild(prev);
         let next = document.createElement("a");
-        next.addEventListener("click", plusSlides);
+        // next.addEventListener("click", plusSlides);
         next.setAttribute("class", "next");
         next.innerHTML = "&#10095;";
         next.value = 1;
@@ -312,25 +313,25 @@ function setSlideIndex(event) {
   showSlides(slideIndex, event);
 }
 
-
 function openModal(event) {
   event.target.parentNode.parentNode.childNodes[2].style.opacity = 0;
   event.target.parentNode.parentNode.childNodes[2].style.display = "block";
+  document.body.style.overflow = "hidden";
   let opacity = 0;
   let interval = setInterval(fadeIn, 5);
   function fadeIn() {
-      if (opacity > 1) {
-          clearInterval(interval);
+    if (opacity > 1) {
+      clearInterval(interval);
       currentDisplay = event.target.parentNode.parentNode.childNodes[2];
-        } else {
-            opacity += 0.02;
-            event.target.parentNode.parentNode.childNodes[2].style.opacity = opacity;
-          }
-        }
-      }
+    } else {
+      opacity += 0.02;
+      event.target.parentNode.parentNode.childNodes[2].style.opacity = opacity;
+    }
+  }
+}
 
 let currentDisplay;
-      
+
 function closeModal() {
   let opacity = 1;
   let interval = setInterval(fadeOut, 5);
@@ -339,6 +340,7 @@ function closeModal() {
       clearInterval(interval);
       currentDisplay.style.display = "none";
     } else {
+      document.body.style.overflow = "visible";
       opacity -= 0.02;
       currentDisplay.style.opacity = opacity;
     }
@@ -354,38 +356,33 @@ function closeModal() {
 
 // }
 
-function plusSlides(event) {
-  // pictureSlide(event)
-  let n = event.target.value;
-  showSlides((slideIndex += n), event);
-}
-
 function currentSlide(event) {
   // pictureSlide(event)
   slideIndex = event.target.picNum;
+  // console.log(
+  event.target.parentNode.parentNode
+    .querySelector(".modal-content")
+    .style.setProperty("--i", slideIndex);
+  // );
   showSlides(event.target.picNum, event);
 }
 
 function showSlides(n, event) {
-  let slides, dots;
-  slides = event.target.parentNode.parentNode.getElementsByClassName(
-    "mySlides"
-  );
-  dots = event.target.parentNode.parentNode.getElementsByClassName("demo");
-  if (n > slides.length - 1) {
-    slideIndex = 0;
-  }
-  if (n < 0) {
-    slideIndex = slides.length - 1;
-  }
+  let modal, slides, dots;
+
+  modal = event.target.parentNode.parentNode;
+  console.log(modal);
+  slides = modal.getElementsByClassName("mySlides");
+  dots = modal.getElementsByClassName("demo");
+
+  //going to try to add this functionality later
 
   //swipe test code
 
-  const _C = event.target.parentNode.parentNode.querySelector(".modal-content"),
+  const _C = modal.querySelector(".modal-content"),
     N = slides.length;
-  console.log(_C);
 
-  let x = 0,
+  let //  x = n, //used to be 0
     x0 = null,
     locked = false,
     w;
@@ -412,8 +409,10 @@ function showSlides(n, event) {
         s = Math.sign(dx),
         f = +((s * dx) / w).toFixed(2);
 
-      if ((x > 0 || s < 0) && (x < N - 1 || s > 0) && f > 0.2) {
-        _C.style.setProperty("--i", (x -= s));
+      if ((n > 0 || s < 0) && (n < N - 1 || s > 0) && f > 0.2) {
+        _C.style.setProperty("--i", (n -= s));
+        console.log(n);
+        slideIndex = n;
         f = 1 - f;
       }
 
@@ -424,17 +423,33 @@ function showSlides(n, event) {
     }
   }
 
-  function picSize(){
-    for (let i = 0; i < slides.length; i++) {
-      let picWidth = slides[i].clientWidth
-      let sidePadding = (w - picWidth) / 2 + 1 + "px"
-      slides[i].style.paddingLeft = sidePadding
-      slides[i].style.paddingRight = sidePadding
+  function plusSlides(event) {
+    let n = event.target.value;
+    slideIndex += n;
+    if (slideIndex > slides.length - 1) {
+      slideIndex = 0;
     }
-  } 
+    if (slideIndex < 0) {
+      slideIndex = slides.length - 1;
+    }
+
+    modal.style.setProperty("--i", slideIndex);
+    modal.style.setProperty("--f", 0.75);
+  }
+
+  function picSize() {
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.paddingLeft = "0px";
+      slides[i].style.paddingRight = "0px";
+      let picWidth = slides[i].clientWidth;
+      let sidePadding = (w - picWidth) / 2 + "px";
+      slides[i].style.paddingLeft = sidePadding;
+      slides[i].style.paddingRight = sidePadding;
+    }
+  }
 
   function size() {
-    w = window.innerWidth; 
+    w = window.innerWidth;
   }
 
   _C.style.setProperty("--n", N);
@@ -451,6 +466,9 @@ function showSlides(n, event) {
 
   _C.addEventListener("mouseup", move, false);
   _C.addEventListener("touchend", move, false);
+
+  modal.querySelector(".prev").addEventListener("click", plusSlides);
+  modal.querySelector(".next").addEventListener("click", plusSlides);
 
   //swipe test code
 
