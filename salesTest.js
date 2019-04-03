@@ -63,14 +63,10 @@ firebase
           area.appendChild(pic);
         }
 
-        // let mySlide = document.createElement("div");
         for (let i = 0; i < itemPicArr.length; i++) {
           let slidePic = document.createElement("img");
           slidePic.setAttribute("class", "mySlides");
-          // slidePic.setAttribute("src", "pictures/" + obj[item].pics[i]);   changes to make the swipe work
           slidePic.setAttribute("id", itemPicArr[i] + i);
-          // mySlide.appendChild(slidePic);
-          // lightboxContent.appendChild(mySlide);
           lightboxContent.appendChild(slidePic);
         }
         let prev = document.createElement("a");
@@ -316,7 +312,6 @@ function setSlideIndex(event) {
   showSlides(slideIndex, event);
 }
 
-let currentDisplay;
 
 function openModal(event) {
   event.target.parentNode.parentNode.childNodes[2].style.opacity = 0;
@@ -324,16 +319,18 @@ function openModal(event) {
   let opacity = 0;
   let interval = setInterval(fadeIn, 5);
   function fadeIn() {
-    if (opacity > 1) {
-      clearInterval(interval);
+      if (opacity > 1) {
+          clearInterval(interval);
       currentDisplay = event.target.parentNode.parentNode.childNodes[2];
-    } else {
-      opacity += 0.02;
-      event.target.parentNode.parentNode.childNodes[2].style.opacity = opacity;
-    }
-  }
-}
+        } else {
+            opacity += 0.02;
+            event.target.parentNode.parentNode.childNodes[2].style.opacity = opacity;
+          }
+        }
+      }
 
+let currentDisplay;
+      
 function closeModal() {
   let opacity = 1;
   let interval = setInterval(fadeOut, 5);
@@ -381,12 +378,6 @@ function showSlides(n, event) {
   if (n < 0) {
     slideIndex = slides.length - 1;
   }
-  //place to put shrink animation (work in progress)
-  // let picture = slides[i]
-  // let areaWidth = screen.width;
-  // let picWidth = slides[i].clientWidth;
-  // let width = Math.round((picWidth / areaWidth) * 100);
-  // let margin = (100 - width) / 2;
 
   //swipe test code
 
@@ -433,28 +424,22 @@ function showSlides(n, event) {
     }
   }
 
-  function size() {
-    // let _CWidth; 
-    w = window.innerWidth;
+  function picSize(){
     for (let i = 0; i < slides.length; i++) {
       let picWidth = slides[i].clientWidth
-      // console.log(picWidth)
-      if(picWidth >= w){
-        slides[i].style.maxWidth = w + "px"
-        slides[i].style.paddingLeft = null
-        slides[i].style.paddingRight = null;
-      } else {
-        slides[i].style.maxWidth = null;
-        let sidePadding = (w - picWidth) / 2 + "px"
-        slides[i].style.paddingLeft = sidePadding
-        slides[i].style.paddingRight = sidePadding
-      }
-    
+      let sidePadding = (w - picWidth) / 2 + 1 + "px"
+      slides[i].style.paddingLeft = sidePadding
+      slides[i].style.paddingRight = sidePadding
     }
+  } 
+
+  function size() {
+    w = window.innerWidth; 
   }
 
-  size();
   _C.style.setProperty("--n", N);
+  size();
+  picSize();
 
   window.addEventListener("resize", size, false);
 

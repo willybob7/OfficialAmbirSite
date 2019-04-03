@@ -277,20 +277,17 @@ h1 a:hover::before {
   --n: 1;
   display: flex;
   align-items: center;
-  /* overflow-y: hidden; */
-  /* width: 100%; */
+  /* justify-content: space-around; */
+  overflow-y: hidden;
   width: calc(var(--n) * 100%);
   margin: auto;
-  /* height: 50vw; */
   max-height: 100vh;
   transform: translate(calc(var(--tx, 0px) + var(--i, 0) / var(--n) * -100%));
 }
 
 .modal-content img {
   max-height: 85vh;
-  max-width: 100%;
-  /* width: 100%; */
-  /* width: calc(100% / var(--n)); */
+  max-width: 100vw;
   user-select: none;
   pointer-events: none;
   align-self: center;
