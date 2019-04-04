@@ -3,7 +3,7 @@ add privacy policy on footer
 contact info will go on the footer
 ability to add more pictures
 confirmation that admin status has been changed
-have the store still show old listings but marked as sold/use paypal and stripe using backend functions to do this automatically
+have the store still show old listings but marked as sold/use paypal and stripe using backend functions to do this automatically https://www.youtube.com/watch?v=7k03jobKGXM&list=WL&index=31&t=524s
 implement browser compatability check
 maybe add some animations for loading
 refactor sales.js
