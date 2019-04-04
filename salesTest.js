@@ -86,7 +86,7 @@ firebase
         for (let i = 0; i < obj[item].pics.length; i++) {
           if (i === 0) {
             thumbPlace = document.createElement("div");
-            thumbPlace.setAttribute("class", "column");
+            thumbPlace.setAttribute("id", "modalThumbPics");
           }
           let thumbNail = document.createElement("img");
           thumbNail.setAttribute("class", "demo");
@@ -239,7 +239,6 @@ function sectionParameters(event) {
   focusPicListener();
 }
 
-//animation version
 function changePic(event) {
   let picture = event.target.parentNode.childNodes[1];
   let areaWidth = picture.clientWidth;
@@ -248,13 +247,12 @@ function changePic(event) {
   let margin = (100 - width) / 2;
   let id = setInterval(shrink, 5);
   function shrink() {
-    if (width <= 0) {
-      clearInterval(id);
+    if (width < 0) {
       newPic();
+      clearInterval(id);
     } else {
       width -= 6;
       margin += 3;
-      /* code to change the element style */
       picture.style.width = width + "%";
       picture.style.marginLeft = margin + "%";
     }
@@ -275,30 +273,15 @@ function changePic(event) {
         picture.style.width = "100%";
         picture.style.marginLeft = "0%";
         clearInterval(id);
-        // newPic();
       } else {
         width += interval;
         margin -= 3;
-        /* code to change the element style */
         picture.style.width = width + "%";
         picture.style.marginLeft = margin + "%";
       }
     }
   }
 }
-
-//original
-// function changePic(event) {
-//   let picture = event.target.parentNode.childNodes[1];
-//   picture.removeChild(picture.childNodes[0]);
-//   let newPic = document.createElement("img");
-//   newPic.setAttribute("src", event.target.src);
-//   newPic.setAttribute("class", "focusPic");
-//   newPic.picNum = event.target.picNum;
-//   newPic.addEventListener('click', openModal);
-//   newPic.addEventListener("click", currentSlide);
-//   picture.appendChild(newPic);
-// }
 
 function changePicListener() {
   let picClass = document.getElementsByClassName("pic");
@@ -307,11 +290,6 @@ function changePicListener() {
   }
 }
 
-let slideIndex = 0;
-function setSlideIndex(event) {
-  slideIndex = event.target.picNum;
-  showSlides(slideIndex, event);
-}
 
 function openModal(event) {
   event.target.parentNode.parentNode.childNodes[2].style.opacity = 0;
@@ -347,43 +325,33 @@ function closeModal() {
   }
 }
 
-// function pictureSlide(event){
-//   // let focusPic = document.querySelector(".modal-content")
-//   if(currentDisplay){
-//     // document.querySelector(".mySlides").style.left = "500px";
-//     console.log(document.querySelector(".mySlides"))
-//   }
-
-// }
-
-function currentSlide(event) {
-  // pictureSlide(event)
+let slideIndex = 0;
+function setSlideIndex(event) {
   slideIndex = event.target.picNum;
-  // console.log(
-  event.target.parentNode.parentNode
-    .querySelector(".modal-content")
-    .style.setProperty("--i", slideIndex);
-  // );
-  showSlides(event.target.picNum, event);
+  let modal = event.target.parentNode.parentNode
+  modal.querySelector(".modal-content").style.setProperty("--i", slideIndex);
+  modal.querySelector(".modal-content").style.setProperty("--f", 1);  
+
+  showSlides(modal);
 }
 
-function showSlides(n, event) {
-  let modal, slides, dots;
 
-  modal = event.target.parentNode.parentNode;
-  console.log(modal);
+function currentSlide(event) {
+  slideIndex = event.target.picNum;
+  modal = event.target.parentNode.parentNode.querySelector(".modal");
+  modal.querySelector(".modal-content").style.setProperty("--i", slideIndex);
+  showSlides(modal);
+}
+
+function showSlides(modal) {
+  let slides, dots;
   slides = modal.getElementsByClassName("mySlides");
   dots = modal.getElementsByClassName("demo");
-
-  //going to try to add this functionality later
-
-  //swipe test code
 
   const _C = modal.querySelector(".modal-content"),
     N = slides.length;
 
-  let //  x = n, //used to be 0
-    x0 = null,
+  let x0 = null,
     locked = false,
     w;
 
@@ -409,10 +377,11 @@ function showSlides(n, event) {
         s = Math.sign(dx),
         f = +((s * dx) / w).toFixed(2);
 
-      if ((n > 0 || s < 0) && (n < N - 1 || s > 0) && f > 0.2) {
-        _C.style.setProperty("--i", (n -= s));
-        console.log(n);
-        slideIndex = n;
+      if ((slideIndex > 0 || s < 0) && (slideIndex < N - 1 || s > 0) && f > 0.2) {
+        _C.style.setProperty("--i", (slideIndex -= s));
+        slideIndex = slideIndex;
+        // slideIndex = slideIndex;
+        console.log(slideIndex);
         f = 1 - f;
       }
 
@@ -420,21 +389,28 @@ function showSlides(n, event) {
       _C.style.setProperty("--f", f);
       _C.classList.toggle("smooth", !(locked = false));
       x0 = null;
+      dotOpacity();
     }
   }
 
   function plusSlides(event) {
     let n = event.target.value;
     slideIndex += n;
+    console.log(slideIndex)
     if (slideIndex > slides.length - 1) {
       slideIndex = 0;
     }
     if (slideIndex < 0) {
       slideIndex = slides.length - 1;
     }
+    modal.querySelector(".modal-content").style.setProperty("--i", slideIndex);  
+    modal.querySelector(".modal-content").style.setProperty("--f", 0.75);  
+    dotOpacity();
+  }
 
-    modal.style.setProperty("--i", slideIndex);
-    modal.style.setProperty("--f", 0.75);
+  function size() {
+    w = window.innerWidth;
+    picSize();
   }
 
   function picSize() {
@@ -446,63 +422,40 @@ function showSlides(n, event) {
       slides[i].style.paddingLeft = sidePadding;
       slides[i].style.paddingRight = sidePadding;
     }
+    dotOpacity();
   }
 
-  function size() {
-    w = window.innerWidth;
+  function dotOpacity(){
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+  
+    dots[slideIndex].className += " active";
   }
-
   _C.style.setProperty("--n", N);
   size();
-  picSize();
 
-  window.addEventListener("resize", size, false);
+  addEventListener("resize", size, false);
 
-  _C.addEventListener("mousedown", lock, false);
-  _C.addEventListener("touchstart", lock, false);
+//put some browser detection here to change the code that gets used
 
-  _C.addEventListener("mousemove", drag, false);
-  _C.addEventListener("touchmove", drag, false);
+  _C.onmousedown = lock;
+  // _C.addEventListener("touchstart", lock, false);
+  _C.ontouchstart = lock;
 
-  _C.addEventListener("mouseup", move, false);
-  _C.addEventListener("touchend", move, false);
 
-  modal.querySelector(".prev").addEventListener("click", plusSlides);
-  modal.querySelector(".next").addEventListener("click", plusSlides);
+  _C.onmousemove = drag;
+  // _C.addEventListener("touchmove", drag, false);
+  _C.ontouchmove = drag;
 
-  //swipe test code
+  _C.onmouseup = move;
+  // _C.addEventListener("touchend", move, false);
+  _C.ontouchend = move;
 
-  // for (let i = 0; i < slides.length; i++) {
-  //   if (slides[i].style.display != "none") {
-  //     let picture = slides[i];
-  //     let picWidth = picture.childNodes[0].clientWidth;
-  //     let leftWidth = (window.innerWidth - picWidth) / 2 + picWidth;
-  //     let rightMargin = 0;
-  //     let id = setInterval(pictureSlideOff, 1);
-  //     function pictureSlideOff() {
-  //       if (rightMargin > leftWidth) {
-  //         clearInterval(id);
-  //         //do a set interval for pictureSlideOn here
-  //         picture.style.display = "none";
-  //         picture.style.right = "0px";
-  //         slides[slideIndex].style.display = "block";
-  //         slides[slideIndex].childNodes[0].className = "display";
-  //       } else {
-  //         rightMargin += 10;
-  //         picture.style.right = rightMargin + "px";
-  //       }
-  //     }
-  //     // function pictureSlideOn() {
-  //     //   slides[slideIndex].stlye.left =
-  //     // }
-  //   }
-  // }
 
-  for (let i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
+  modal.querySelector(".prev").onclick = plusSlides;
+  modal.querySelector(".next").onclick = plusSlides;
 
-  dots[slideIndex].className += " active";
 }
 
 function focusPicListener() {
@@ -526,7 +479,6 @@ dropdownForm = document
       let showingPicAreas = document.getElementsByClassName(param);
       console.log(showingPicAreas);
       picAreasArray.forEach(function(element) {
-        // element.style.display = "none"
         console.log(typeof element.className);
         if (element.className.includes(param)) {
           element.style.display = "block";

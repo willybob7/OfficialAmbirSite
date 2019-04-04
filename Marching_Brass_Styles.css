@@ -189,7 +189,7 @@ h1 a:hover::before {
     width: 400px;
   }
 }
-@media screen and (max-width: 474px) {
+@media only screen and (max-width: 474px) {
   .logo {
     margin: 0px auto;
   }
@@ -209,12 +209,12 @@ h1 a:hover::before {
   #pics {
     margin-top: 140px;
   }
-  .column {
-    display: none;
+  #modalThumbPics {
+    width: 100vw;
   }
 }
 
-.row > .column {
+.row > #modalThumbPics {
   padding: 0 8px;
 }
 
@@ -224,7 +224,7 @@ h1 a:hover::before {
   clear: both;
 }
 
-.column {
+#modalThumbPics {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -234,7 +234,7 @@ h1 a:hover::before {
   left: 25%;
 }
 @media screen and (max-width: 650px) {
-  .column {
+  #modalThumbPics {
     width: 75%;
     left: 15%;
   }
