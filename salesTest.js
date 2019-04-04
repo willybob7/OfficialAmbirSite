@@ -214,17 +214,6 @@ firebase
     }
   });
 
-function sectionListeners() {
-  let list = document.getElementById("sectionPages").getElementsByTagName("LI");
-  let len = list.length;
-  let i = 0;
-  while (i < len) {
-    list[i].addEventListener("click", sectionParameters);
-    i++;
-  }
-}
-sectionListeners();
-
 function sectionParameters(event) {
   let param = event.target.textContent;
   console.log(param);
@@ -290,7 +279,6 @@ function changePicListener() {
   }
 }
 
-
 function openModal(event) {
   event.target.parentNode.parentNode.childNodes[2].style.opacity = 0;
   event.target.parentNode.parentNode.childNodes[2].style.display = "block";
@@ -326,15 +314,19 @@ function closeModal() {
 }
 
 let slideIndex = 0;
+
 function setSlideIndex(event) {
+  let oldSlideIndex = slideIndex;
   slideIndex = event.target.picNum;
-  let modal = event.target.parentNode.parentNode
+  let diff = slideIndex - oldSlideIndex;
+  diff = diff > 0 ? diff : -diff;
+  let modal = event.target.parentNode.parentNode;
   modal.querySelector(".modal-content").style.setProperty("--i", slideIndex);
-  modal.querySelector(".modal-content").style.setProperty("--f", 1);  
+  // modal.querySelector(".modal-content").style.setProperty("--f", diff * 0.4); ask Mary about this
+  modal.querySelector(".modal-content").style.setProperty("--f", 0);
 
   showSlides(modal);
 }
-
 
 function currentSlide(event) {
   slideIndex = event.target.picNum;
@@ -377,11 +369,13 @@ function showSlides(modal) {
         s = Math.sign(dx),
         f = +((s * dx) / w).toFixed(2);
 
-      if ((slideIndex > 0 || s < 0) && (slideIndex < N - 1 || s > 0) && f > 0.2) {
+      if (
+        (slideIndex > 0 || s < 0) &&
+        (slideIndex < N - 1 || s > 0) &&
+        f > 0.2
+      ) {
         _C.style.setProperty("--i", (slideIndex -= s));
         slideIndex = slideIndex;
-        // slideIndex = slideIndex;
-        console.log(slideIndex);
         f = 1 - f;
       }
 
@@ -396,15 +390,15 @@ function showSlides(modal) {
   function plusSlides(event) {
     let n = event.target.value;
     slideIndex += n;
-    console.log(slideIndex)
+    console.log(slideIndex);
     if (slideIndex > slides.length - 1) {
       slideIndex = 0;
     }
     if (slideIndex < 0) {
       slideIndex = slides.length - 1;
     }
-    modal.querySelector(".modal-content").style.setProperty("--i", slideIndex);  
-    modal.querySelector(".modal-content").style.setProperty("--f", 0.75);  
+    modal.querySelector(".modal-content").style.setProperty("--i", slideIndex);
+    modal.querySelector(".modal-content").style.setProperty("--f", 0.75);
     dotOpacity();
   }
 
@@ -425,11 +419,11 @@ function showSlides(modal) {
     dotOpacity();
   }
 
-  function dotOpacity(){
+  function dotOpacity() {
     for (let i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" active", "");
     }
-  
+
     dots[slideIndex].className += " active";
   }
   _C.style.setProperty("--n", N);
@@ -437,12 +431,11 @@ function showSlides(modal) {
 
   addEventListener("resize", size, false);
 
-//put some browser detection here to change the code that gets used
+  //put some browser detection here to change the code that gets used
 
   _C.onmousedown = lock;
   // _C.addEventListener("touchstart", lock, false);
   _C.ontouchstart = lock;
-
 
   _C.onmousemove = drag;
   // _C.addEventListener("touchmove", drag, false);
@@ -452,10 +445,8 @@ function showSlides(modal) {
   // _C.addEventListener("touchend", move, false);
   _C.ontouchend = move;
 
-
   modal.querySelector(".prev").onclick = plusSlides;
   modal.querySelector(".next").onclick = plusSlides;
-
 }
 
 function focusPicListener() {
