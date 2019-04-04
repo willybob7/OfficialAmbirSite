@@ -36,7 +36,6 @@ firebase
         for (let i = 0; i < itemPicArr.length; i++) {
           if (i == 0) {
             let pic = document.createElement("img");
-            // pic.setAttribute("src", "pictures/" + obj[item].pics[i]);
             pic.setAttribute("id", itemPicArr[i] + "BIG");
             pic.setAttribute("alt", "stuff");
             pic.setAttribute("class", "focusPic");
@@ -49,13 +48,11 @@ firebase
             close.innerHTML = "&times;";
             lightbox.appendChild(close);
             lightboxContent = document.createElement("div");
-            // lightboxContent.setAttribute("class", "modal-content");
             lightboxContent.className = "modal-content smooth";
             lightbox.appendChild(lightboxContent);
             area.appendChild(lightbox);
           }
           let pic = document.createElement("img");
-          // pic.setAttribute("src", "pictures/" + obj[item].pics[i]);
           pic.setAttribute("id", itemPicArr[i]);
           pic.setAttribute("alt", "stuff");
           pic.setAttribute("height", "40");
@@ -280,18 +277,19 @@ function changePicListener() {
 }
 
 function openModal(event) {
-  event.target.parentNode.parentNode.childNodes[2].style.opacity = 0;
-  event.target.parentNode.parentNode.childNodes[2].style.display = "block";
+  currentDisplay = event.target.parentNode.parentNode.childNodes[2];
+  currentDisplay.style.opacity = 0;
+  currentDisplay.style.display = "block";
   document.body.style.overflow = "hidden";
   let opacity = 0;
   let interval = setInterval(fadeIn, 5);
   function fadeIn() {
     if (opacity > 1) {
       clearInterval(interval);
-      currentDisplay = event.target.parentNode.parentNode.childNodes[2];
+      currentDisplay = currentDisplay;
     } else {
       opacity += 0.02;
-      event.target.parentNode.parentNode.childNodes[2].style.opacity = opacity;
+      currentDisplay.style.opacity = opacity;
     }
   }
 }
