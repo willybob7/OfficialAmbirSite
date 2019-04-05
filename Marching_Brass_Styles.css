@@ -2,11 +2,12 @@
 body {
   margin: 0;
   /* background-image: url("https://spencer-s-site.firebaseapp.com/pictures/background.jpg"); */
-
+  overflow-x: hidden; 
   background-image: url("pictures/background.jpg");
   font-family: "Work Sans", sans-serif;
   font-weight: 800;
   background-size: 100%;
+  width: 100vw;
 }
 
 .container {

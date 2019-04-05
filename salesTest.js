@@ -320,8 +320,8 @@ function setSlideIndex(event) {
   diff = diff > 0 ? diff : -diff;
   let modal = event.target.parentNode.parentNode;
   modal.querySelector(".modal-content").style.setProperty("--i", slideIndex);
-  // modal.querySelector(".modal-content").style.setProperty("--f", diff * 0.4); ask Mary about this
-  modal.querySelector(".modal-content").style.setProperty("--f", 0);
+  modal.querySelector(".modal-content").style.setProperty("--f", diff * 0.75); 
+  // modal.querySelector(".modal-content").style.setProperty("--f", 0);
 
   showSlides(modal);
 }
@@ -388,7 +388,6 @@ function showSlides(modal) {
   function plusSlides(event) {
     let n = event.target.value;
     slideIndex += n;
-    console.log(slideIndex);
     if (slideIndex > slides.length - 1) {
       slideIndex = 0;
     }
