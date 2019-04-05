@@ -1,4 +1,5 @@
 things needed to do yet:
+get rid of the policy dropdown to prevent side scroll on mobile site
 add privacy policy on footer
 contact info will go on the footer
 ability to add more pictures
