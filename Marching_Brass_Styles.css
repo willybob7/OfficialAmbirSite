@@ -2,7 +2,7 @@
 body {
   margin: 0;
   /* background-image: url("https://spencer-s-site.firebaseapp.com/pictures/background.jpg"); */
-  overflow-x: hidden; 
+  overflow-x: hidden;
   background-image: url("pictures/background.jpg");
   font-family: "Work Sans", sans-serif;
   font-weight: 800;
@@ -70,7 +70,8 @@ nav li {
   text-align: center;
 }
 
-nav a {
+nav a,
+#footer a {
   color: white;
   text-decoration: none;
   text-transform: uppercase;
@@ -82,7 +83,8 @@ nav a:hover {
 }
 
 nav a::before,
-.logo::before {
+.logo::before,
+#footer a::before {
   content: "";
   display: block;
   height: 5px;
@@ -95,7 +97,8 @@ nav a::before,
 h1 a::before {
   margin-top: 5px;
 }
-nav a:hover::before {
+nav a:hover::before,
+#footer a:hover::before {
   width: 100%;
 }
 h1 a:hover::before {
@@ -107,9 +110,9 @@ h1 a:hover::before {
   z-index: 2;
   position: absolute;
   transform: translateY(-5px);
-  background: rgba(26, 26, 26, 0.8);
+  background: rgba(26, 26, 26, 1);
   transition: all 0.3s ease-in-out;
-  width: 130px;
+  width: 50vw;
 }
 
 .dropdown:hover .dropdown-content {
@@ -131,22 +134,6 @@ h1 a:hover::before {
   text-align: left;
 }
 
-.policy-dropdown-content {
-  visibility: hidden;
-  opacity: 0;
-  z-index: 2;
-  position: absolute;
-  transform: translateY(-5px);
-  background: rgba(26, 26, 26, 1);
-  transition: all 0.3s ease-in-out;
-  width: 1500%;
-}
-
-.dropdown:hover .policy-dropdown-content {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(5px);
-}
 .area {
   background: rgba(26, 26, 26, 0.8);
   width: 300px;
@@ -192,7 +179,6 @@ h1 a:hover::before {
 
 #modalThumbPics {
   display: flex;
-  flex-wrap: no-wrap;
   justify-content: center;
   position: fixed;
   max-height: 10vh;
@@ -223,7 +209,7 @@ h1 a:hover::before {
   overflow: hidden;
   width: calc(var(--n) * 100vw);
   margin: auto;
-  max-height: 100vh;
+  max-height: 90vh;
   transform: translate(calc(var(--tx, 0px) + var(--i, 0) / var(--n) * -100%));
 }
 
@@ -348,16 +334,34 @@ p {
   margin: 3px auto 3px auto;
 }
 
-@media screen and (max-width: 940px) {
-  .policy-dropdown-content {
-    width: 1000%;
-  }
+#footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 200px;
+  background: rgba(26, 26, 26, 0.9);
+  margin-top: 200px;
+  text-align: center;
+  font-family: "Cormorant SC", serif;
 }
 
-@media screen and (max-width: 530px) {
-  .policy-dropdown-content {
-    width: 400px;
-  }
+#footer ul {
+  text-decoration: none;
+  list-style: none;
+  width: 130px;
+  padding-inline-start: 0px;
+}
+
+#footer li {
+  margin: 4px 2%;
+  padding-top: 10px;
+  position: relative;
+  text-align: center;
+}
+
+#comingSoon {
+  margin-top: 300px;
 }
 
 @media screen and (max-width: 474px) {
@@ -374,9 +378,7 @@ p {
   .dropdown-content {
     display: none;
   }
-  .policy-dropdown-content {
-    display: none;
-  }
+
   #pics {
     margin-top: 140px;
   }

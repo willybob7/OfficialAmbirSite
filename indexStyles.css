@@ -100,9 +100,7 @@ nav a:hover::before {
 h1 a:hover::before {
   width: 210px;
 }
-.dropdown {
-  /* height: ; */
-}
+
 .dropdown-content {
   visibility: hidden;
   opacity: 0;
@@ -111,7 +109,7 @@ h1 a:hover::before {
   transform: translateY(-5px);
   background: rgba(26, 26, 26, 0.8);
   transition: all 0.3s ease-in-out;
-  width: 130px;
+  width: 500px;
 }
 
 .dropdown:hover .dropdown-content {
