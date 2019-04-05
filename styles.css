@@ -140,6 +140,23 @@ h1 a:hover::before {
   margin: 150px auto 20px auto;
 }
 
-#footer a {
+#footer li {
   margin-top: 50%;
+}
+
+@media screen and (max-width: 500px) {
+  .logo {
+    margin: 0px auto;
+  }
+  .container p {
+    margin: 0;
+  }
+  nav li,
+  #footer li {
+    display: block;
+    padding-top: 10px;
+  }
+  .dropdown-content {
+    display: none;
+  }
 }
