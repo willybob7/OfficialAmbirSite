@@ -378,6 +378,9 @@ p {
   .dropdown-content {
     display: none;
   }
+  .demo {
+    margin: 0px;
+  }
 
   #pics {
     margin-top: 140px;

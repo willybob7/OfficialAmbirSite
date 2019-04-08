@@ -69,7 +69,8 @@ nav li {
   text-align: center;
 }
 
-nav a {
+nav a,
+#footer a {
   color: white;
   text-decoration: none;
   text-transform: uppercase;
@@ -81,7 +82,8 @@ nav a:hover {
 }
 
 nav a::before,
-.logo::before {
+.logo::before,
+#footer a::before {
   content: "";
   display: block;
   height: 5px;
@@ -94,7 +96,8 @@ nav a::before,
 h1 a::before {
   margin-top: 5px;
 }
-nav a:hover::before {
+nav a:hover::before,
+#footer a:hover::before {
   width: 100%;
 }
 h1 a:hover::before {
@@ -109,7 +112,7 @@ h1 a:hover::before {
   transform: translateY(-5px);
   background: rgba(26, 26, 26, 0.8);
   transition: all 0.3s ease-in-out;
-  width: 500px;
+  width: 130px;
 }
 
 .dropdown:hover .dropdown-content {
@@ -123,9 +126,29 @@ h1 a:hover::before {
 }
 
 #footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   height: 200px;
   background: rgba(26, 26, 26, 0.9);
-  margin-top: 20px;
+  margin-top: 200px;
+  text-align: center;
+  font-family: "Cormorant SC", serif;
+}
+
+#footer ul {
+  text-decoration: none;
+  list-style: none;
+  width: 130px;
+  padding-inline-start: 0px;
+}
+
+#footer li {
+  margin: 4px 2%;
+  padding-top: 10px;
+  position: relative;
+  text-align: center;
 }
 
 .mySlides {
@@ -246,7 +269,7 @@ h1 a:hover::before {
 }
 
 /* On smaller screens, decrease text size */
-@media screen and (max-width: 668px) {
+@media screen and (max-width: 686px) {
   .slideshow-container {
     margin: 200px auto 0 auto;
   }
@@ -265,7 +288,7 @@ h1 a:hover::before {
   }
   .slideshow-container {
     width: 100%;
-    margin: 340px auto 0 auto;
+    margin: 380px auto 0 auto;
   }
   .container p {
     margin: 0;
