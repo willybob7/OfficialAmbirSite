@@ -320,7 +320,7 @@ function setSlideIndex(event) {
   diff = diff > 0 ? diff : -diff;
   let modal = event.target.parentNode.parentNode;
   modal.querySelector(".modal-content").style.setProperty("--i", slideIndex);
-  modal.querySelector(".modal-content").style.setProperty("--f", diff * 0.75); 
+  modal.querySelector(".modal-content").style.setProperty("--f", diff * 0.75);
   // modal.querySelector(".modal-content").style.setProperty("--f", 0);
 
   showSlides(modal);

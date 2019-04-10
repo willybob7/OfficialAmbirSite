@@ -1,25 +1,29 @@
-.page{
+.page {
   height: 200px;
   margin-top: 200px;
 }
-#upload, #delete, #signup-form, #login-form, 
-#signout, .admin-actions, #make-admin, 
-#upload-item, #delete-item, #changePasswordForm{
+#upload,
+#delete,
+#signup-form,
+#login-form,
+#signout,
+.admin-actions,
+#make-admin,
+#upload-item,
+#delete-item,
+#changePasswordForm {
   display: none;
 }
-.progress{
+.progress {
   width: 50%;
-  margin: 15px; 
+  margin: 15px;
 }
-#file-upload{
-  height: 20px;
+.file-upload {
+  margin: 20px 0 0 20px;
 }
-.row{
+.row {
   margin: 10px 0 10px 0;
 }
-.btn{
+.btn {
   margin: 5px 5px 5px 5px;
-}
-#fileUpload{
-  margin-left: 20px;
 }
