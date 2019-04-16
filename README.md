@@ -10,3 +10,4 @@
 9. use firebase functions to make a custom email sign up form
 10. talk to spencer about repair specials sales
 11. center index.html slideshow pics or just get pics that are all the same size http://jsfiddle.net/kizu/4RPFa/4570/
+12. change the small picture animations to be https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_flip_box
