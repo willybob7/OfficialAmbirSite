@@ -155,60 +155,58 @@ auth.onAuthStateChanged(user => {
   }
 });
 
-let picUploadOnChange = (document.getElementById(
-  "fileUpload"
-).onchange = function() {
-  console.log("works");
-  let additionalFileInput = document.createElement("input");
-  additionalFileInput.setAttribute("type", "file");
-  additionalFileInput.setAttribute("class", "file-upload");
-  let attMultiple = document.createAttribute("multiple");
-  additionalFileInput.setAttributeNode(attMultiple);
-  fileInputDiv.appendChild(additionalFileInput);
-});
+
+
+document.getElementById("fileUpload").addEventListener("change", addUploadButton)
+
+function addUploadButton(event) {
+  let inputs = event.target.parentNode.getElementsByTagName("INPUT")
+  let inputValArr = [];
+  for(let i = 0; i < inputs.length; i++){
+    if (inputs[i].value != ""){
+      inputValArr.push(inputs[i].value)
+    }
+  }
+  if(inputValArr.length == inputs.length){
+    let additionalFileInput = document.createElement("input");
+    additionalFileInput.setAttribute("type", "file");
+    additionalFileInput.setAttribute("class", "file-upload");
+    let attMultiple = document.createAttribute("multiple");
+    additionalFileInput.setAttributeNode(attMultiple);
+    additionalFileInput.addEventListener("change", addUploadButton)
+    fileInputDiv.appendChild(additionalFileInput);
+  }
+};
 
 uploadForm.onsubmit = function(event) {
   event.preventDefault();
   let obj = {};
-  let pictures = document.getElementById("fileUpload").files;
-
-  let n = pictures.length;
+  filesArr = [];
+  let pictures = document.getElementById("fileInputDiv").getElementsByTagName("INPUT");
+  for (let i = 0; i < pictures.length; i++) {
+    filesArr.push(pictures[i].files)
+  }
   let picNameArr = [];
-  let j = 0;
-  while (j < n) {
-    picNameArr.push(pictures[j].name);
-    let upload = storageRef.child(`Store/${pictures[j].name}`).put(pictures[j]);
-    upload.on("state_changed", function progress(snapshot) {
-      let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      document.getElementById("uploader").value = percentage;
-    });
-    // , function error(error){
-    //   console.log(error)
-    // })
-    // function complete(){
-    // })
-    j++;
+  for (let i = 0; i < filesArr.length; i++){
+    let n = filesArr[i].length;
+    let j = 0;
+    while (j < n) {
+      picNameArr.push(filesArr[i][j].name);
+      let upload = storageRef.child(`Store/${filesArr[i][j].name}`).put(filesArr[i][j]);
+      upload.on("state_changed", function progress(snapshot) {
+        let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        document.getElementById("uploader").value = percentage;
+      });
+      // , function error(error){
+      //   console.log(error)
+      // })
+      // function complete(){
+      // })
+      j++;
+    }
   }
 
   let input = document.getElementById("buyButton").value;
-  // let arr = input.split("");
-  // let i = 0;
-  // let backslash = String.fromCharCode(92);
-  // let forwardslash = String.fromCharCode(47);
-
-  // while (i < arr.length){
-  //   if (arr[i] == '"'){
-  //     arr.splice(i, 0, backslash);
-  //     i++;
-  //   }
-  //   if (arr[i] == forwardslash && arr[i+1] == forwardslash){
-  //     arr.splice(i, 0, backslash);
-  //     arr.splice(i+2, 0, backslash);
-  //     i += 3;
-  //   }
-  //   i++;
-  // }
-
   obj.pics = picNameArr;
   obj.type = document.getElementById("sectionSelector").value;
   obj.brand = document.getElementById("brand").value;
@@ -223,12 +221,17 @@ uploadForm.onsubmit = function(event) {
     .push()
     .set(obj);
 
-  let main = document.getElementById("main");
-  let done = document.createElement("h1");
-  // let doneText = document.createTextNode("Upload Complete")
+  let upload = document.getElementById("upload");
+  let done = document.createElement("h4");
+  done.setAttribute("id", "uploadComplete")
+  let doneText = document.createTextNode("Upload Complete")
   done.appendChild(doneText);
-  main.appendChild(done);
+  upload.appendChild(done);
 };
+
+document.getElementById("clearForm").addEventListener("click", function(){
+    document.getElementById("uploadComplete").innerHTML = "";
+})
 
 deleteForm.onsubmit = function(event) {
   event.preventDefault();
